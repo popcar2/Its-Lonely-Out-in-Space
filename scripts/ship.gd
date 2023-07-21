@@ -77,7 +77,6 @@ func _physics_process(delta):
 		if collision.get_collider().is_in_group("environment") and can_get_hit:
 			can_get_hit_cooldown()
 			var collision_normal: Vector2 = collision.get_normal()
-			#momentum -= collision_normal * 2
 			velocity -= collision_normal * 200
 			collision_normal = -abs(collision_normal)
 			if collision_normal.x == 0:
@@ -184,6 +183,8 @@ func respawn():
 	
 	for barrier in get_tree().get_nodes_in_group("barrier"):
 		barrier.renew_barrier()
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		enemy.respawn_enemy()
 	
 	await get_tree().create_timer(0.3).timeout
 	GUI.fuel = GUI.max_fuel

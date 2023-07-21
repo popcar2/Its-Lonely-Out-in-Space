@@ -29,18 +29,22 @@ func _physics_process(delta):
 		position += -transform.y * SPEED * 0.5 * delta
 
 func _on_body_entered(body):
-	var collided = false
-	if body.is_in_group("environment"):
-		is_alive = false
-		var particles: GPUParticles2D = hit_particles.instantiate()
-		particles.global_position = $ParticleSpawnPoint.global_position
-		particles.emitting = true
-		particles.rotation_degrees = rotation_degrees + 90
-		add_sibling(particles)
-		collided = true
+	destroy_projectile()
 	if body.is_in_group("destructable"):
 		body.hp -= damage
-	
-	if collided:
-		await get_tree().create_timer(1).timeout
-		queue_free()
+
+
+func _on_area_entered(area):
+	if area.is_in_group("enemy"):
+		destroy_projectile()
+		area.hp -= damage
+
+func destroy_projectile():
+	is_alive = false
+	var particles: GPUParticles2D = hit_particles.instantiate()
+	particles.global_position = $ParticleSpawnPoint.global_position
+	particles.emitting = true
+	particles.rotation_degrees = rotation_degrees + 90
+	add_sibling(particles)
+	await get_tree().create_timer(1).timeout
+	queue_free()
