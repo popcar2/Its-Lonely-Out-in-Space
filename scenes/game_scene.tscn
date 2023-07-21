@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://h5niwrgt5ae1"]
+
+[ext_resource type="PackedScene" uid="uid://cyr1qmi6inlaw" path="res://nodes/ship.tscn" id="1_inf08"]
+[ext_resource type="Texture2D" uid="uid://basl0lt7njtcr" path="res://icon.svg" id="2_7p1tx"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o7yh1"]
+texture = ExtResource("2_7p1tx")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+
+[sub_resource type="TileSet" id="TileSet_ur3ci"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 7
+sources/1 = SubResource("TileSetAtlasSource_o7yh1")
+
+[node name="Game Scene" type="Node2D"]
+
+[node name="Ship" parent="." instance=ExtResource("1_inf08")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="TileMap" type="TileMap" parent="." groups=["environment"]]
+tile_set = SubResource("TileSet_ur3ci")
+format = 2
+layer_0/tile_data = PackedInt32Array(327673, 1, 0, 327674, 65537, 0, 327675, 65537, 0, 327676, 65537, 0, 327677, 65537, 0, 327678, 65537, 0, 327679, 65537, 0, 262144, 65537, 0, 262145, 65537, 0, 262146, 65537, 0, 262147, 65537, 0, 262148, 65537, 0, 262149, 65537, 0, 262150, 65537, 0, 327686, 65537, 1, 327685, 65537, 1, 327684, 65537, 1, 327683, 65537, 1, 327682, 65537, 1, 327681, 65537, 1, 327680, 65537, 1, 393215, 65537, 1, 393214, 65537, 1, 393213, 65537, 1, 393212, 65537, 1, 393211, 65537, 1, 393210, 65537, 1, 393209, 1, 1)
