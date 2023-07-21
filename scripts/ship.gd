@@ -29,17 +29,28 @@ func shoot_cooldown():
 
 func _physics_process(delta):
 	var x_direction: float = Input.get_axis("left", "right")
-	if x_direction:
-		momentum.x += x_direction * SPEED * delta
-	else:
-		momentum.x = move_toward(momentum.x, 0, SPEED * delta)
+	var y_direction: float = Input.get_axis("up", "down")
+	
+	if GUI.fuel > 0:
+		if x_direction:
+			momentum.x += x_direction * SPEED * delta
+		else:
+			momentum.x = move_toward(momentum.x, 0, SPEED * delta)
+		
+		if y_direction:
+			momentum.y += y_direction * SPEED * delta
+		else:
+			momentum.y = move_toward(momentum.y, 0, SPEED * delta)
+		
+		if x_direction or y_direction:
+			GUI.fuel -= 1
 	
 	var collision: KinematicCollision2D = get_last_slide_collision()
 	if collision:
 		if collision.get_collider().is_in_group("environment"):
 			var collision_normal: Vector2 = collision.get_normal()
-			momentum -= collision_normal * 5
-			velocity -= collision_normal * 5
+			momentum -= collision_normal * 3
+			velocity -= collision_normal * 3
 			collision_normal = -abs(collision_normal)
 			if collision_normal.x == 0:
 				collision_normal.x = 0.5
@@ -49,15 +60,10 @@ func _physics_process(delta):
 			velocity *= 0.7 * collision_normal
 			print(velocity)
 	
-	var y_direction: float = Input.get_axis("up", "down")
-	if y_direction:
-		momentum.y += y_direction * SPEED * delta
-	else:
-		momentum.y = move_toward(momentum.y, 0, SPEED * delta)
-	
 	momentum.y = clamp(momentum.y, -10, 10)
 	momentum.x = clamp(momentum.x, -10, 10)
 	velocity.y = clamp(velocity.y, -500, 500)
 	velocity.x = clamp(velocity.x, -500, 500)
 	velocity += momentum
+	momentum = momentum.move_toward(Vector2.ZERO, SPEED * 0.1 * delta)
 	move_and_slide()

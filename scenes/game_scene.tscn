@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://h5niwrgt5ae1"]
+[gd_scene load_steps=6 format=3 uid="uid://h5niwrgt5ae1"]
 
 [ext_resource type="PackedScene" uid="uid://cyr1qmi6inlaw" path="res://nodes/ship.tscn" id="1_inf08"]
 [ext_resource type="Texture2D" uid="uid://copi5667fvqhv" path="res://Textures/monochrome_tilemap_transparent_packed.png" id="2_43rxq"]
+[ext_resource type="FontFile" uid="uid://dsnggm6v13eg4" path="res://fonts/Kenney Future Narrow.ttf" id="3_o1nx8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wqftc"]
 texture = ExtResource("2_43rxq")
@@ -1221,6 +1222,16 @@ physics_layer_0/collision_mask = 7
 sources/2 = SubResource("TileSetAtlasSource_wqftc")
 
 [node name="Game Scene" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -547.0
+offset_top = -440.0
+offset_right = -147.0
+offset_bottom = -139.0
+theme_override_fonts/normal_font = ExtResource("3_o1nx8")
+theme_override_font_sizes/normal_font_size = 82
+bbcode_enabled = true
+text = "[center]Move with wasd"
 
 [node name="Ship" parent="." instance=ExtResource("1_inf08")]
 position = Vector2(-350, -64)
