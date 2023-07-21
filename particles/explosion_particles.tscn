@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=3 uid="uid://cuj3qhpawx6vs"]
+
+[ext_resource type="Texture2D" uid="uid://crt0knavf2tat" path="res://Textures/magic_05.png" id="1_w6ybu"]
+[ext_resource type="Texture2D" uid="uid://do5ioamo2xdhe" path="res://Textures/circle_02.png" id="2_o38y3"]
+
+[sub_resource type="Curve" id="Curve_5lpwi"]
+_data = [Vector2(0, 0.147368), 0.0, 0.0, 0, 0, Vector2(0.604336, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_q4ccx"]
+curve = SubResource("Curve_5lpwi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bhy7u"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_q4ccx")
+
+[sub_resource type="Gradient" id="Gradient_75dfg"]
+offsets = PackedFloat32Array(0.230769, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tkyov"]
+gradient = SubResource("Gradient_75dfg")
+
+[sub_resource type="Curve" id="Curve_235nm"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), -4.27263, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_t3mso"]
+curve = SubResource("Curve_235nm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_32sym"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_t3mso")
+color_ramp = SubResource("GradientTexture1D_tkyov")
+
+[node name="Explosion Particles" type="Node2D"]
+
+[node name="Star Explosion" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_bhy7u")
+texture = ExtResource("1_w6ybu")
+one_shot = true
+explosiveness = 0.9
+
+[node name="Circle Explosion" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_32sym")
+texture = ExtResource("2_o38y3")
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.9

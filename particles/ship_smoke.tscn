@@ -1,6 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnxou8tk7kvlo"]
+[gd_scene load_steps=7 format=3 uid="uid://dnxou8tk7kvlo"]
 
 [ext_resource type="Texture2D" uid="uid://eepsjrb7aven" path="res://Textures/smoke_07.png" id="1_o6vak"]
+
+[sub_resource type="Gradient" id="Gradient_eoeey"]
+colors = PackedColorArray(1, 1, 1, 0.784314, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tb80c"]
+gradient = SubResource("Gradient_eoeey")
 
 [sub_resource type="Curve" id="Curve_4jvro"]
 _data = [Vector2(0.195122, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -22,6 +28,7 @@ angle_max = 180.0
 scale_min = 0.2
 scale_max = 0.25
 scale_curve = SubResource("CurveTexture_bm08v")
+color_ramp = SubResource("GradientTexture1D_tb80c")
 
 [node name="Ship Smoke" type="GPUParticles2D"]
 amount = 30

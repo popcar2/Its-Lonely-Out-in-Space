@@ -3,31 +3,39 @@ extends CharacterBody2D
 @onready var ship_smoke: GPUParticles2D = $"Ship Smoke"
 
 const projectile_scene: PackedScene = preload("res://nodes/projectile.tscn")
+const explosion_particle_scene: PackedScene = preload("res://particles/explosion_particles.tscn")
 const SPEED: int = 20
 
 var momentum: Vector2 = Vector2.ZERO
+var spawn_point: Vector2
 
 var fire_rate: float = 0.75
 var is_shooting: bool = false
 var can_shoot: bool = true
 var can_get_hit: bool = true
+var is_dead: bool = false
 
 func _ready():
 	#ship_smoke.rotation_degrees = 90
 	ship_smoke.emitting = false
 	ship_smoke.modulate = Color(2, 2, 2)
+	spawn_point = global_position
 
 func _process(_delta):
+	if is_dead:
+		return
+	
 	var mouse_position: Vector2 = get_global_mouse_position()
 	look_at(mouse_position)
 	rotation_degrees += 90
 	
-	if Input.is_action_pressed("attack") and can_shoot:
+	if Input.is_action_pressed("attack") and can_shoot and GUI.fuel > 0:
 		shoot_cooldown()
 		var projectile: Area2D = projectile_scene.instantiate()
 		projectile.global_position = global_position
 		projectile.rotation_degrees += 90
 		add_sibling(projectile)
+		GUI.fuel -= 10
 
 func shoot_cooldown():
 	can_shoot = false
@@ -35,6 +43,9 @@ func shoot_cooldown():
 	can_shoot = true
 
 func _physics_process(delta):
+	if is_dead:
+		return
+	
 	var x_direction: float = Input.get_axis("left", "right")
 	var y_direction: float = Input.get_axis("up", "down")
 	
@@ -60,8 +71,8 @@ func _physics_process(delta):
 		if collision.get_collider().is_in_group("environment") and can_get_hit:
 			can_get_hit_cooldown()
 			var collision_normal: Vector2 = collision.get_normal()
-			momentum -= collision_normal * 3
-			velocity -= collision_normal * 3
+			momentum -= collision_normal * 8
+			velocity -= collision_normal * 8
 			collision_normal = -abs(collision_normal)
 			if collision_normal.x == 0:
 				collision_normal.x = 0.5
@@ -69,7 +80,10 @@ func _physics_process(delta):
 				collision_normal.y = 0.5
 			momentum *= 0.7 * collision_normal
 			velocity *= 0.7 * collision_normal
+			velocity.y = clamp(velocity.y, -300, 300)
+			velocity.x = clamp(velocity.x, -300, 300)
 			GUI.hp -= 20
+			check_death()
 			print(velocity)
 	
 	momentum.y = clamp(momentum.y, -10, 10)
@@ -121,3 +135,37 @@ func emit_smoke(x_direction: float, y_direction: float):
 		ship_smoke.rotation_degrees = -45
 	else:
 		ship_smoke.emitting = false
+
+func check_death():
+	if GUI.hp <= 0:
+		is_dead = true
+		$Sprite2D.hide()
+		spawn_explosion_particles()
+		await get_tree().create_timer(1).timeout
+		respawn()
+
+func spawn_explosion_particles():
+	var explosion_particles: Node2D = explosion_particle_scene.instantiate()
+	for particle in explosion_particles.get_children():
+		particle.emitting = true
+	explosion_particles.global_position = global_position
+	add_sibling(explosion_particles)
+	await get_tree().create_timer(2).timeout
+	explosion_particles.queue_free()
+
+func respawn():
+	velocity = Vector2.ZERO
+	momentum = Vector2.ZERO
+	ship_smoke.emitting = false
+	
+	var tween: Tween = get_tree().create_tween()
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	await tween.tween_property(get_tree().get_first_node_in_group("camera"), "global_position", spawn_point, 2).finished
+	global_position = spawn_point
+	spawn_explosion_particles()
+	
+	await get_tree().create_timer(0.3).timeout
+	GUI.fuel = GUI.max_fuel
+	GUI.hp = GUI.max_hp
+	$Sprite2D.show()
+	is_dead = false
