@@ -72,3 +72,62 @@ theme_override_fonts/normal_font = ExtResource("3_180n2")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "[center]FUEL"
+
+[node name="FakeHPProgressBar" type="TextureProgressBar" parent="Control"]
+self_modulate = Color(0.247059, 0.0745098, 0.0627451, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -168.0
+offset_right = 343.0
+offset_bottom = -95.0
+grow_vertical = 0
+step = 0.01
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 6
+stretch_margin_top = 5
+stretch_margin_right = 6
+stretch_margin_bottom = 5
+texture_progress = ExtResource("2_x65n0")
+
+[node name="HPProgressBar" type="TextureProgressBar" parent="Control"]
+self_modulate = Color(0.658824, 0.262745, 0.231373, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -168.0
+offset_right = 343.0
+offset_bottom = -95.0
+grow_vertical = 0
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 6
+stretch_margin_top = 5
+stretch_margin_right = 6
+stretch_margin_bottom = 5
+texture_progress = ExtResource("2_x65n0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/HPProgressBar"]
+texture_filter = 4
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 11.0
+offset_top = -26.5
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_180n2")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]HULL"

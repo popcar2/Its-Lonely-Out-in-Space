@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnxou8tk7kvlo"]
+
+[ext_resource type="Texture2D" uid="uid://eepsjrb7aven" path="res://Textures/smoke_07.png" id="1_o6vak"]
+
+[sub_resource type="Curve" id="Curve_4jvro"]
+_data = [Vector2(0.195122, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bm08v"]
+curve = SubResource("Curve_4jvro")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_de35a"]
+particle_flag_disable_z = true
+spread = 20.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 350.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -180.0
+angle_max = 180.0
+scale_min = 0.2
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_bm08v")
+
+[node name="Ship Smoke" type="GPUParticles2D"]
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_de35a")
+texture = ExtResource("1_o6vak")
+lifetime = 1.5

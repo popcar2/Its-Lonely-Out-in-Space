@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
-const projectile_scene: PackedScene = preload("res://nodes/projectile.tscn")
+@onready var ship_smoke: GPUParticles2D = $"Ship Smoke"
 
+const projectile_scene: PackedScene = preload("res://nodes/projectile.tscn")
 const SPEED: int = 20
 
 var momentum: Vector2 = Vector2.ZERO
@@ -9,6 +10,12 @@ var momentum: Vector2 = Vector2.ZERO
 var fire_rate: float = 0.75
 var is_shooting: bool = false
 var can_shoot: bool = true
+var can_get_hit: bool = true
+
+func _ready():
+	#ship_smoke.rotation_degrees = 90
+	ship_smoke.emitting = false
+	ship_smoke.modulate = Color(2, 2, 2)
 
 func _process(_delta):
 	var mouse_position: Vector2 = get_global_mouse_position()
@@ -32,6 +39,7 @@ func _physics_process(delta):
 	var y_direction: float = Input.get_axis("up", "down")
 	
 	if GUI.fuel > 0:
+		emit_smoke(x_direction, y_direction)
 		if x_direction:
 			momentum.x += x_direction * SPEED * delta
 		else:
@@ -44,10 +52,13 @@ func _physics_process(delta):
 		
 		if x_direction or y_direction:
 			GUI.fuel -= 1
+	else:
+		ship_smoke.emitting = false
 	
 	var collision: KinematicCollision2D = get_last_slide_collision()
 	if collision:
-		if collision.get_collider().is_in_group("environment"):
+		if collision.get_collider().is_in_group("environment") and can_get_hit:
+			can_get_hit_cooldown()
 			var collision_normal: Vector2 = collision.get_normal()
 			momentum -= collision_normal * 3
 			velocity -= collision_normal * 3
@@ -58,6 +69,7 @@ func _physics_process(delta):
 				collision_normal.y = 0.5
 			momentum *= 0.7 * collision_normal
 			velocity *= 0.7 * collision_normal
+			GUI.hp -= 20
 			print(velocity)
 	
 	momentum.y = clamp(momentum.y, -10, 10)
@@ -65,5 +77,47 @@ func _physics_process(delta):
 	velocity.y = clamp(velocity.y, -500, 500)
 	velocity.x = clamp(velocity.x, -500, 500)
 	velocity += momentum
-	momentum = momentum.move_toward(Vector2.ZERO, SPEED * 0.1 * delta)
+	momentum = momentum.move_toward(Vector2.ZERO, SPEED * 0.2 * delta)
 	move_and_slide()
+
+func can_get_hit_cooldown():
+	can_get_hit = false
+	await get_tree().create_timer(0.1).timeout
+	can_get_hit = true
+
+func emit_smoke(x_direction: float, y_direction: float):
+	# Who even needs optimized code
+	if x_direction == 0 and y_direction > 0:
+		ship_smoke.emitting = true
+		ship_smoke.global_position = global_position + Vector2(0, -50)
+		ship_smoke.rotation_degrees = 270
+	elif x_direction > 0 and y_direction > 0:
+		ship_smoke.emitting = true
+		ship_smoke.global_position = global_position + Vector2(-50, -50)
+		ship_smoke.rotation_degrees = 225
+	elif x_direction > 0 and y_direction == 0:
+		ship_smoke.emitting = true
+		ship_smoke.global_position = global_position + Vector2(-50, 0)
+		ship_smoke.rotation_degrees = 180
+	elif x_direction > 0 and y_direction < 0:
+		ship_smoke.emitting = true
+		ship_smoke.global_position = global_position + Vector2(-50, 50)
+		ship_smoke.rotation_degrees = 135
+	elif x_direction == 0 and y_direction < 0:
+		ship_smoke.emitting = true
+		ship_smoke.global_position = global_position + Vector2(0, 50)
+		ship_smoke.rotation_degrees = 90
+	elif x_direction < 0 and y_direction < 0:
+		ship_smoke.emitting = true
+		ship_smoke.global_position = global_position + Vector2(50, 50)
+		ship_smoke.rotation_degrees = 45
+	elif x_direction < 0 and y_direction == 0:
+		ship_smoke.emitting = true
+		ship_smoke.global_position = global_position + Vector2(50, 0)
+		ship_smoke.rotation_degrees = 0
+	elif x_direction < 0 and y_direction > 0:
+		ship_smoke.emitting = true
+		ship_smoke.global_position = global_position + Vector2(50, -50)
+		ship_smoke.rotation_degrees = -45
+	else:
+		ship_smoke.emitting = false
