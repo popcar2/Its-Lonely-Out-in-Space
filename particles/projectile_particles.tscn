@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://0f8abp775wg6"]
+
+[ext_resource type="Texture2D" uid="uid://ckqvdgjc7cl2k" path="res://Textures/effect_yellow.png" id="1_idtsm"]
+
+[sub_resource type="Curve" id="Curve_m4m2n"]
+_data = [Vector2(0, 0.294737), 0.0, 0.607287, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4issj"]
+curve = SubResource("Curve_m4m2n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ati14"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+spread = 80.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_4issj")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_ati14")
+texture = ExtResource("1_idtsm")
+lifetime = 0.75
+one_shot = true
+explosiveness = 0.9

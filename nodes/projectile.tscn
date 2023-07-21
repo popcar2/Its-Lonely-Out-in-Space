@@ -9,7 +9,7 @@ size = Vector2(64, 89)
 [node name="Projectile" type="Area2D"]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
-collision_mask = 4
+collision_mask = 12
 script = ExtResource("1_hi6nk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -18,3 +18,8 @@ texture = ExtResource("2_6ycpf")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -19.5)
 shape = SubResource("RectangleShape2D_4b48t")
+
+[node name="ParticleSpawnPoint" type="Node2D" parent="."]
+position = Vector2(0, -64)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

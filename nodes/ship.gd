@@ -6,7 +6,7 @@ const SPEED: int = 20
 
 var momentum: Vector2 = Vector2.ZERO
 
-var fire_rate: float = 0.5
+var fire_rate: float = 0.75
 var is_shooting: bool = false
 var can_shoot: bool = true
 
@@ -37,9 +37,17 @@ func _physics_process(delta):
 	var collision: KinematicCollision2D = get_last_slide_collision()
 	if collision:
 		if collision.get_collider().is_in_group("environment"):
-			print(collision.get_normal())
-			momentum *= -0.3
-			velocity *= -0.5
+			var collision_normal: Vector2 = collision.get_normal()
+			momentum -= collision_normal * 5
+			velocity -= collision_normal * 5
+			collision_normal = -abs(collision_normal)
+			if collision_normal.x == 0:
+				collision_normal.x = 0.5
+			if collision_normal.y == 0:
+				collision_normal.y = 0.5
+			momentum *= 0.7 * collision_normal
+			velocity *= 0.7 * collision_normal
+			print(velocity)
 	
 	var y_direction: float = Input.get_axis("up", "down")
 	if y_direction:
