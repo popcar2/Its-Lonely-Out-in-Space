@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://1vv0bi3ruxbi"]
+[gd_scene load_steps=5 format=3 uid="uid://1vv0bi3ruxbi"]
 
 [ext_resource type="Script" path="res://scripts/GUI.gd" id="1_6ma7r"]
 [ext_resource type="Texture2D" uid="uid://cmh5oxbprcwyn" path="res://Textures/squareWhite.png" id="2_x65n0"]
 [ext_resource type="FontFile" uid="uid://dsnggm6v13eg4" path="res://fonts/Kenney Future Narrow.ttf" id="3_180n2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsdv7"]
+bg_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource("1_6ma7r")
@@ -131,3 +138,31 @@ theme_override_fonts/normal_font = ExtResource("3_180n2")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "[center]HULL"
+
+[node name="Restart Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -173.0
+offset_right = 93.5
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xsdv7")
+
+[node name="Restart Text" type="RichTextLabel" parent="Control/Restart Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_180n2")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[center]Hold R
+to restart"

@@ -48,6 +48,7 @@ process_material = SubResource("ParticleProcessMaterial_bhy7u")
 texture = ExtResource("1_w6ybu")
 one_shot = true
 explosiveness = 0.9
+fixed_fps = 60
 
 [node name="Circle Explosion" type="GPUParticles2D" parent="."]
 emitting = false
@@ -57,3 +58,4 @@ texture = ExtResource("2_o38y3")
 lifetime = 1.5
 one_shot = true
 explosiveness = 0.9
+fixed_fps = 60
