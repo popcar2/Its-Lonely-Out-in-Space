@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1ae5qsg7t0nf"]
+
+[ext_resource type="Script" path="res://scripts/barrier.gd" id="1_yhkuy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nd4fg"]
+size = Vector2(10, 258)
+
+[node name="Barrier" type="StaticBody2D" groups=["barrier", "destructable", "environment"]]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_yhkuy")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, -100, 0, 100)
+default_color = Color(0.980392, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nd4fg")

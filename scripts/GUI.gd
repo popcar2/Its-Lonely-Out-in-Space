@@ -8,7 +8,7 @@ var max_fuel: int = 500
 var fuel: int = 500 :
 	set(value):
 		fuel = value
-		fuel_progressbar.value = fuel
+		tween_progressbar(fuel_progressbar, fuel, 0.2)
 		if fuel <= 0:
 			out_of_fuel()
 

@@ -38,7 +38,7 @@ func _process(_delta):
 		projectile.global_position = global_position
 		projectile.rotation_degrees += 90
 		add_sibling(projectile)
-		GUI.fuel -= 10
+		GUI.fuel -= 50
 	
 	if Input.is_action_just_pressed("restart") and not is_restarting:
 		restart()
@@ -78,7 +78,7 @@ func _physics_process(delta):
 			can_get_hit_cooldown()
 			var collision_normal: Vector2 = collision.get_normal()
 			#momentum -= collision_normal * 2
-			velocity -= collision_normal * 100
+			velocity -= collision_normal * 200
 			collision_normal = -abs(collision_normal)
 			if collision_normal.x == 0:
 				collision_normal.x = 0.5
@@ -151,7 +151,8 @@ func die():
 	$Sprite2D.hide()
 	spawn_explosion_particles()
 	player_died.emit()
-	await get_tree().create_timer(1).timeout
+	move_and_slide()
+	await get_tree().create_timer(0.75).timeout
 	respawn()
 
 func restart():
@@ -177,9 +178,12 @@ func respawn():
 	
 	var tween: Tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	await tween.tween_property(get_tree().get_first_node_in_group("camera"), "global_position", respawn_point, 2).finished
+	await tween.tween_property(get_tree().get_first_node_in_group("camera"), "global_position", respawn_point, 1).finished
 	global_position = respawn_point
 	spawn_explosion_particles()
+	
+	for barrier in get_tree().get_nodes_in_group("barrier"):
+		barrier.renew_barrier()
 	
 	await get_tree().create_timer(0.3).timeout
 	GUI.fuel = GUI.max_fuel
