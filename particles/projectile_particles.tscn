@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://0f8abp775wg6"]
+[gd_scene load_steps=6 format=3 uid="uid://0f8abp775wg6"]
 
 [ext_resource type="Texture2D" uid="uid://ckqvdgjc7cl2k" path="res://Textures/effect_yellow.png" id="1_idtsm"]
+[ext_resource type="Script" path="res://scripts/destroy_after_time.gd" id="2_cu4lx"]
 
 [sub_resource type="Curve" id="Curve_m4m2n"]
 _data = [Vector2(0, 0.294737), 0.0, 0.607287, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -27,3 +28,5 @@ texture = ExtResource("1_idtsm")
 lifetime = 0.75
 one_shot = true
 explosiveness = 0.9
+script = ExtResource("2_cu4lx")
+time = 3.0

@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bxtnrw0dcca1m"]
+
+[ext_resource type="Shader" path="res://shader/smooth_pixels.gdshader" id="1_jhvgd"]
+
+[resource]
+shader = ExtResource("1_jhvgd")

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dua1cmn7vdgsw" path="res://Textures/meteor_large.png" id="1_tcyvf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_du1av"]
-radius = 38.1182
+radius = 42.0476
 
 [node name="Mine" type="Area2D" groups=["enemy"]]
 collision_layer = 4

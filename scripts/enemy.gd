@@ -27,9 +27,9 @@ func _ready():
 
 func destroy_enemy():
 	visible = false
-	collision_shape.scale *= 2.5
+	collision_shape.scale *= 2
 	spawn_explosion_particles()
-	await get_tree().create_timer(0.75).timeout
+	await get_tree().create_timer(0.6).timeout
 	collision_shape.set_deferred("disabled", true)
 
 func respawn_enemy():

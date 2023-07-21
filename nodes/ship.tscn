@@ -13,7 +13,7 @@ script = ExtResource("1_8r704")
 texture = ExtResource("1_p2ja4")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-41, 30, 41, 30, 0, -39)
+polygon = PackedVector2Array(-33, 28, 33, 27, 0, -30)
 
 [node name="Ship Smoke" parent="." instance=ExtResource("3_gvyf1")]
 top_level = true

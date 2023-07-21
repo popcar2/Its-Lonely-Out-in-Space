@@ -10,3 +10,8 @@ func _on_area_2d_body_entered(body):
 		var tween: Tween = get_tree().create_tween()
 		default_color = Color.LAWN_GREEN
 		tween.tween_property(self, "default_color", Color("00d7e7"), 1)
+		
+		for barrier in get_tree().get_nodes_in_group("barrier"):
+			barrier.renew_barrier()
+		for enemy in get_tree().get_nodes_in_group("enemy"):
+			enemy.respawn_enemy()

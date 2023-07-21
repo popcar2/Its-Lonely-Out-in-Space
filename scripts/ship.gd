@@ -51,6 +51,8 @@ func shoot_cooldown():
 func _physics_process(delta):
 	if is_dead:
 		return
+	else:
+		check_death()
 	
 	var x_direction: float = Input.get_axis("left", "right")
 	var y_direction: float = Input.get_axis("up", "down")
@@ -88,13 +90,11 @@ func _physics_process(delta):
 			velocity.y = clamp(velocity.y, -300, 300)
 			velocity.x = clamp(velocity.x, -300, 300)
 			GUI.hp -= 20
-			check_death()
-			print(velocity)
 	
 	momentum.y = clamp(momentum.y, -10, 10)
 	momentum.x = clamp(momentum.x, -10, 10)
-	velocity.y = clamp(velocity.y, -500, 500)
-	velocity.x = clamp(velocity.x, -500, 500)
+	velocity.y = clamp(velocity.y, -600, 600)
+	velocity.x = clamp(velocity.x, -600, 600)
 	velocity += momentum
 	momentum = momentum.move_toward(Vector2.ZERO, SPEED * 0.2 * delta)
 	move_and_slide()
