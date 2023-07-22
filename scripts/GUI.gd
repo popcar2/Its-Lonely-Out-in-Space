@@ -4,6 +4,8 @@ extends CanvasLayer
 @onready var hp_progressbar: TextureProgressBar = $Control/HPProgressBar
 @onready var restart_panel: Panel = $"Control/Restart Panel"
 
+@onready var end_scene: PackedScene = preload("res://scenes/outro_scene.tscn")
+
 var max_fuel: int = 500 :
 	set(value):
 		fuel_progressbar.max_value = value
@@ -33,6 +35,8 @@ var restart_panel_tween: Tween
 
 var deaths: int
 var powerups_collected: int
+var seconds_passed: int
+var game_ended: bool = false
 
 func _ready():
 	fuel_progressbar.max_value = max_fuel
@@ -42,6 +46,7 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	restart_panel.modulate.a = 0
 	player.player_died.connect(_on_player_died)
+	count_time()
 
 func tween_progressbar(progressbar: TextureProgressBar, value: int, time: float):
 	var tween: Tween = get_tree().create_tween()
@@ -67,3 +72,21 @@ func reset_restart_panel():
 		restart_panel_tween.kill()
 		restart_panel_tween = get_tree().create_tween()
 	restart_panel_tween.tween_property(restart_panel, "modulate:a", 0, 0.1)
+
+func count_time():
+	while not game_ended:
+		await get_tree().create_timer(1).timeout
+		seconds_passed += 1
+
+func end_game():
+	game_ended = true
+	
+	var outro_screen: CanvasLayer = end_scene.instantiate()
+	outro_screen.get_child(0).modulate.a = 0
+	add_sibling(outro_screen)
+	
+	var tween: Tween = get_tree().create_tween()
+	tween.set_parallel(true)
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property($Control, "modulate:a", 0, 3)
+	tween.tween_property(outro_screen.get_child(0), "modulate:a", 1, 3)

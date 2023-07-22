@@ -84,5 +84,7 @@ func _on_body_entered(body):
 			body.velocity += collision_normal * 1000
 
 func _on_detection_radius_body_entered(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and visible:
 		is_chasing = true
+		$AlertSFX.pitch_scale = randf_range(0.9, 1.05)
+		$AlertSFX.play()

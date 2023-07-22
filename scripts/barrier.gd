@@ -6,6 +6,8 @@ extends StaticBody2D
 		if hp <= 0:
 			destroy_barrier()
 
+@export var can_respawn: bool = true
+
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var break_SFX: AudioStreamPlayer2D = $BreakSFX
 
@@ -18,10 +20,10 @@ func destroy_barrier():
 	break_SFX.play()
 	
 	recently_broken = true
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1).timeout
 	recently_broken = false
 
 func renew_barrier():
-	if not recently_broken:
+	if not recently_broken and can_respawn:
 		visible = true
 		collision_shape.set_deferred("disabled", false)

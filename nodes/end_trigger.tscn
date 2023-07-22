@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://csgbv5d8pecan"]
+
+[ext_resource type="Script" path="res://scripts/end_trigger.gd" id="1_ghfwd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_htfnw"]
+size = Vector2(264, 320)
+
+[node name="EndTrigger" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_ghfwd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_htfnw")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
