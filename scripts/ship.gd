@@ -21,6 +21,7 @@ var can_shoot: bool = true
 var can_get_hit: bool = true
 var is_dead: bool = false
 var is_restarting: bool = false
+var can_control: bool = true
 
 func _ready():
 	#ship_smoke.rotation_degrees = 90
@@ -37,7 +38,7 @@ func _process(_delta):
 	look_at(mouse_position)
 	rotation_degrees += 90
 	
-	if Input.is_action_pressed("attack") and can_shoot and GUI.fuel > 0:
+	if Input.is_action_pressed("attack") and can_shoot and GUI.fuel > 0 and can_control:
 		shoot_cooldown()
 		var projectile: Area2D = projectile_scene.instantiate()
 		projectile.global_position = global_position
@@ -46,7 +47,7 @@ func _process(_delta):
 		GUI.fuel -= 50
 		laser_SFX.play()
 	
-	if Input.is_action_just_pressed("restart") and not is_restarting:
+	if Input.is_action_just_pressed("restart") and not is_restarting and can_control:
 		restart()
 
 func shoot_cooldown():
@@ -63,7 +64,7 @@ func _physics_process(delta):
 	var x_direction: float = Input.get_axis("left", "right")
 	var y_direction: float = Input.get_axis("up", "down")
 	
-	if GUI.fuel > 0:
+	if GUI.fuel > 0 and can_control:
 		emit_smoke(x_direction, y_direction)
 		if x_direction:
 			momentum.x += x_direction * SPEED * delta
@@ -171,6 +172,7 @@ func die():
 	smoke_SFX.stop()
 	explosion_sfx.play()
 	await get_tree().create_timer(0.75).timeout
+	smoke_SFX.stop()
 	respawn()
 
 func restart():

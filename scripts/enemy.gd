@@ -48,8 +48,6 @@ func destroy_enemy():
 	spawn_explosion_particles()
 	if enemy_type == ENEMY_TYPE_ENUM.MINE:
 		await get_tree().create_timer(0.5).timeout
-	else:
-		await get_tree().create_timer(0.15).timeout
 	collision_shape.set_deferred("disabled", true)
 
 func respawn_enemy():

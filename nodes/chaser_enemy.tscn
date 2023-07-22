@@ -18,7 +18,7 @@ collision_mask = 3
 script = ExtResource("1_2xxw0")
 enemy_type = 1
 explosion_dmg = 100
-speed = 4
+speed = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.952941, 0.368627, 0, 1)
