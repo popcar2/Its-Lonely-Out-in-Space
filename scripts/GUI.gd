@@ -4,7 +4,12 @@ extends CanvasLayer
 @onready var hp_progressbar: TextureProgressBar = $Control/HPProgressBar
 @onready var restart_panel: Panel = $"Control/Restart Panel"
 
-var max_fuel: int = 500
+var max_fuel: int = 500 :
+	set(value):
+		fuel_progressbar.max_value = value
+		fuel_progressbar.size.x = value/2
+		max_fuel = value
+		$Control/FakeFuelProgressBar.size.x = max_fuel/2
 var fuel: int = 500 :
 	set(value):
 		fuel = value

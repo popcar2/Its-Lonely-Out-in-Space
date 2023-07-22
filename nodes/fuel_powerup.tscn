@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://tem1mdmflg8q"]
+
+[ext_resource type="Texture2D" uid="uid://c2fm0ie7mw8ke" path="res://Textures/Silver Star.png" id="1_0vl28"]
+[ext_resource type="Script" path="res://scripts/fuel_powerup.gd" id="1_5if23"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hq3ib"]
+size = Vector2(129, 131)
+
+[node name="Fuel Powerup" type="Area2D"]
+modulate = Color(0.956863, 0.615686, 0, 1)
+script = ExtResource("1_5if23")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_0vl28")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -1.5)
+shape = SubResource("RectangleShape2D_hq3ib")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
