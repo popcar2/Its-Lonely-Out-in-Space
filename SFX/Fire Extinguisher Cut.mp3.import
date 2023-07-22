@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://o5cuy35nwuft"
+path="res://.godot/imported/Fire Extinguisher Cut.mp3-afd68fc68072809e27c6786a9632ed52.mp3str"
+
+[deps]
+
+source_file="res://SFX/Fire Extinguisher Cut.mp3"
+dest_files=["res://.godot/imported/Fire Extinguisher Cut.mp3-afd68fc68072809e27c6786a9632ed52.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 @onready var ship_smoke: GPUParticles2D = $"Ship Smoke"
+@onready var laser_SFX: AudioStreamPlayer2D = $LaserSFX
+@onready var smoke_SFX: AudioStreamPlayer2D = $SmokeSFX
+@onready var bump_sfx: AudioStreamPlayer2D = $BumpSFX
 
 signal player_died()
 
@@ -39,6 +42,7 @@ func _process(_delta):
 		projectile.rotation_degrees += 90
 		add_sibling(projectile)
 		GUI.fuel -= 50
+		laser_SFX.play()
 	
 	if Input.is_action_just_pressed("restart") and not is_restarting:
 		restart()
@@ -71,8 +75,14 @@ func _physics_process(delta):
 		
 		if x_direction or y_direction:
 			GUI.fuel -= 1
+			if not smoke_SFX.playing:
+				smoke_SFX.pitch_scale = randf_range(0.7, 0.8)
+				smoke_SFX.play(randf_range(0, 3))
+		else:
+			smoke_SFX.stop()
 	else:
 		ship_smoke.emitting = false
+		smoke_SFX.stop()
 	
 	var collision: KinematicCollision2D = get_last_slide_collision()
 	if collision:
@@ -90,6 +100,8 @@ func _physics_process(delta):
 			velocity.y = clamp(velocity.y, -300, 300)
 			velocity.x = clamp(velocity.x, -300, 300)
 			GUI.hp -= 20
+			bump_sfx.pitch_scale = randf_range(0.5, 0.8)
+			bump_sfx.play()
 	
 	momentum.y = clamp(momentum.y, -10, 10)
 	momentum.x = clamp(momentum.x, -10, 10)

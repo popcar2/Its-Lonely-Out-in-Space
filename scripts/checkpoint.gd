@@ -1,5 +1,7 @@
 extends Line2D
 
+@onready var checkpoint_SFX: AudioStreamPlayer2D = $checkpointSFX
+
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
 		GUI.hp = GUI.max_hp
@@ -15,3 +17,5 @@ func _on_area_2d_body_entered(body):
 			barrier.renew_barrier()
 		for enemy in get_tree().get_nodes_in_group("enemy"):
 			enemy.respawn_enemy()
+		
+		checkpoint_SFX.play()

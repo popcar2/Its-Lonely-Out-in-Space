@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4q4g5k1qjld"]
+[gd_scene load_steps=4 format=3 uid="uid://c4q4g5k1qjld"]
 
 [ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_6ktoi"]
+[ext_resource type="AudioStream" uid="uid://dtxm23poa7ixb" path="res://SFX/phaserUp3.mp3" id="2_76p6h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1ky3"]
 size = Vector2(20, 502)
@@ -16,5 +17,8 @@ collision_layer = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_t1ky3")
+
+[node name="checkpointSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_76p6h")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

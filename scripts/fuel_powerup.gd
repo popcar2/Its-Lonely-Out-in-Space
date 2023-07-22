@@ -12,5 +12,6 @@ func _on_body_entered(body):
 		var particles: GPUParticles2D = powerup_particles.instantiate()
 		particles.modulate = modulate
 		particles.global_position = global_position
+		particles.emitting = true
 		add_sibling(particles)
 		queue_free()

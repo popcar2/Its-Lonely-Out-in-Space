@@ -31,7 +31,7 @@ scale_curve = SubResource("CurveTexture_bm08v")
 color_ramp = SubResource("GradientTexture1D_tb80c")
 
 [node name="Ship Smoke" type="GPUParticles2D"]
-amount = 30
+amount = 50
 process_material = SubResource("ParticleProcessMaterial_de35a")
 texture = ExtResource("1_o6vak")
 lifetime = 1.5
