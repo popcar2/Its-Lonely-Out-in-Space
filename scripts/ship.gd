@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var laser_SFX: AudioStreamPlayer2D = $LaserSFX
 @onready var smoke_SFX: AudioStreamPlayer2D = $SmokeSFX
 @onready var bump_sfx: AudioStreamPlayer2D = $BumpSFX
+@onready var explosion_sfx: AudioStreamPlayer2D = $ExplosionSFX
 
 signal player_died()
 
@@ -163,6 +164,8 @@ func die():
 	spawn_explosion_particles()
 	player_died.emit()
 	move_and_slide()
+	smoke_SFX.stop()
+	explosion_sfx.play()
 	await get_tree().create_timer(0.75).timeout
 	respawn()
 

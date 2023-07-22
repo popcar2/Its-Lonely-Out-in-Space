@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyr1qmi6inlaw"]
+[gd_scene load_steps=8 format=3 uid="uid://cyr1qmi6inlaw"]
 
 [ext_resource type="Script" path="res://scripts/ship.gd" id="1_8r704"]
 [ext_resource type="Texture2D" uid="uid://dkrffm2ny52jd" path="res://Textures/ship_G.png" id="1_p2ja4"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://cddjdflgqa705" path="res://SFX/laser2.mp3" id="4_152k2"]
 [ext_resource type="AudioStream" uid="uid://o5cuy35nwuft" path="res://SFX/Fire Extinguisher Cut.mp3" id="5_r0k4d"]
 [ext_resource type="AudioStream" uid="uid://vt4utgh38m0l" path="res://SFX/Metal Impact.mp3" id="6_cqd1e"]
+[ext_resource type="AudioStream" uid="uid://dog3pfvebj1pn" path="res://SFX/explosion.mp3" id="7_qrg5c"]
 
 [node name="Ship" type="CharacterBody2D"]
 collision_mask = 13
@@ -32,3 +33,7 @@ volume_db = -20.0
 [node name="BumpSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_cqd1e")
 volume_db = -7.0
+
+[node name="ExplosionSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_qrg5c")
+volume_db = 2.0

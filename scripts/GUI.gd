@@ -17,7 +17,12 @@ var fuel: int = 500 :
 		if fuel <= 0:
 			out_of_fuel()
 
-var max_hp: int = 100
+var max_hp: int = 100 :
+	set(value):
+		hp_progressbar.max_value = value
+		hp_progressbar.size.x = value * 2.5
+		max_hp = value
+		$Control/FakeHPProgressBar.size.x = value * 2.5
 var hp: int = 100 :
 	set(value):
 		hp = value
