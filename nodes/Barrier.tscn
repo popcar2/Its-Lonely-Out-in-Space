@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1ae5qsg7t0nf"]
+[gd_scene load_steps=4 format=3 uid="uid://c1ae5qsg7t0nf"]
 
 [ext_resource type="Script" path="res://scripts/barrier.gd" id="1_yhkuy"]
+[ext_resource type="AudioStream" uid="uid://bbjflp27ekgkg" path="res://SFX/Barrier Break.wav" id="2_7a2ha"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nd4fg"]
 size = Vector2(10, 258)
@@ -16,3 +17,6 @@ default_color = Color(0.980392, 1, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_nd4fg")
+
+[node name="BreakSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_7a2ha")

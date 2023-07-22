@@ -161,6 +161,7 @@ func check_death():
 func die():
 	is_dead = true
 	$Sprite2D.hide()
+	$'Shadow Sprite'.hide()
 	spawn_explosion_particles()
 	player_died.emit()
 	move_and_slide()
@@ -205,4 +206,5 @@ func respawn():
 	GUI.fuel = GUI.max_fuel
 	GUI.hp = GUI.max_hp
 	$Sprite2D.show()
+	$'Shadow Sprite'.show()
 	is_dead = false

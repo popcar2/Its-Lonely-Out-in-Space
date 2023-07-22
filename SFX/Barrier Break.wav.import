@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bbjflp27ekgkg"
+path="res://.godot/imported/Barrier Break.wav-621d8a1b61c29d83fd5261276521f61f.sample"
+
+[deps]
+
+source_file="res://SFX/Barrier Break.wav"
+dest_files=["res://.godot/imported/Barrier Break.wav-621d8a1b61c29d83fd5261276521f61f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

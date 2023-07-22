@@ -1,4 +1,4 @@
-extends GPUParticles2D
+extends Node2D
 
 @export var time: float
 

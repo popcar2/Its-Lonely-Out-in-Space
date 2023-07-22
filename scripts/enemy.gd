@@ -11,6 +11,7 @@ enum ENEMY_TYPE_ENUM{MINE, CHASER}
 @export var explosion_dmg: int = 80
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var explosion_SFX: AudioStreamPlayer2D = $ExplosionSFX
 
 var explosion_particle_scene: PackedScene = preload("res://particles/explosion_particles.tscn")
 
@@ -27,6 +28,7 @@ func _ready():
 
 func destroy_enemy():
 	visible = false
+	explosion_SFX.play()
 	collision_shape.scale *= 2
 	spawn_explosion_particles()
 	await get_tree().create_timer(0.6).timeout

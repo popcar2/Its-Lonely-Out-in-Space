@@ -55,6 +55,9 @@ func out_of_fuel():
 	restart_panel_tween.tween_property(restart_panel, "modulate:a", 1, 3)
 
 func _on_player_died():
+	reset_restart_panel()
+	
+func reset_restart_panel():
 	if restart_panel_tween == null or not restart_panel_tween.is_valid():
 		restart_panel_tween = get_tree().create_tween()
 	else:

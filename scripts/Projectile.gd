@@ -33,11 +33,11 @@ func _on_body_entered(body):
 	if body.is_in_group("destructable"):
 		body.hp -= damage
 
-
 func _on_area_entered(area):
 	if area.is_in_group("enemy"):
-		destroy_projectile()
-		area.hp -= damage
+		if area.hp > 0:
+			destroy_projectile()
+			area.hp -= damage
 
 func destroy_projectile():
 	is_alive = false
