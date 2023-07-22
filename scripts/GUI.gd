@@ -31,6 +31,9 @@ var hp: int = 100 :
 var player: CharacterBody2D
 var restart_panel_tween: Tween
 
+var deaths: int
+var powerups_collected: int
+
 func _ready():
 	fuel_progressbar.max_value = max_fuel
 	fuel_progressbar.value = fuel

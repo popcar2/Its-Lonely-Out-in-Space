@@ -12,6 +12,7 @@ func _on_body_entered(body):
 		powerup_SFX.play()
 		$Sprite2D.hide()
 		$CollisionShape2D.set_deferred("disabled", true)
+		GUI.powerups_collected += 1
 		if is_hp_powerup:
 			GUI.max_hp += 10
 			GUI.hp = GUI.max_hp

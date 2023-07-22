@@ -101,6 +101,7 @@ func _physics_process(delta):
 			velocity.y = clamp(velocity.y, -300, 300)
 			velocity.x = clamp(velocity.x, -300, 300)
 			GUI.hp -= 20
+			damage_animation()
 			bump_sfx.pitch_scale = randf_range(0.5, 0.8)
 			bump_sfx.play()
 	
@@ -160,9 +161,10 @@ func check_death():
 
 func die():
 	is_dead = true
-	$Sprite2D.hide()
-	$'Shadow Sprite'.hide()
+	%"Player Sprite".hide()
+	%"Shadow Sprite".hide()
 	spawn_explosion_particles()
+	GUI.deaths += 1
 	player_died.emit()
 	move_and_slide()
 	smoke_SFX.stop()
@@ -205,6 +207,12 @@ func respawn():
 	await get_tree().create_timer(0.3).timeout
 	GUI.fuel = GUI.max_fuel
 	GUI.hp = GUI.max_hp
-	$Sprite2D.show()
-	$'Shadow Sprite'.show()
+	%"Player Sprite".show()
+	%"Shadow Sprite".show()
 	is_dead = false
+
+func damage_animation():
+	var tween: Tween = get_tree().create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property($Sprites, "modulate", Color("ff8d81"), 0.1)
+	tween.tween_property($Sprites, "modulate", Color.WHITE, 1)
