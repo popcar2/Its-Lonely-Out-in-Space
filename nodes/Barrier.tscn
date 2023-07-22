@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://bbjflp27ekgkg" path="res://SFX/Barrier Break.wav" id="2_7a2ha"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nd4fg"]
-size = Vector2(10, 258)
+size = Vector2(10, 337)
 
 [node name="Barrier" type="StaticBody2D" groups=["barrier", "destructable", "environment"]]
 collision_layer = 8

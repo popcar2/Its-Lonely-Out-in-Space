@@ -27,6 +27,7 @@ func _ready():
 	ship_smoke.emitting = false
 	ship_smoke.modulate = Color(2, 2, 2)
 	respawn_point = global_position
+	is_dead = true
 
 func _process(_delta):
 	if is_dead:
