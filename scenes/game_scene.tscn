@@ -1767,13 +1767,13 @@ position = Vector2(15468, 2462)
 is_hp_powerup = true
 
 [node name="Ship" parent="." groups=["player"] instance=ExtResource("1_inf08")]
-position = Vector2(19078, 4082)
+position = Vector2(-1712, -100)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Ship"]
 remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
-position = Vector2(19078, 4082)
+position = Vector2(-1712, -100)
 zoom = Vector2(0.5, 0.5)
 position_smoothing_speed = 100.0
 drag_left_margin = 0.01
